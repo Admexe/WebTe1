@@ -42,8 +42,9 @@ function getImages() {
             console.error("response is empty");
         }
         function updateCaption() {
-            const { description, timestamp } = result.images[currentIndex];
-            modalCaption.innerHTML = `<p>${description}</p><p>Odfotené: ${timestamp}</p>`;
+            const { name, description, timestamp, location } = result.images[currentIndex];
+            const locationInfo = location ? `Location: ${location.lat}, ${location.lng}` : '';
+            modalCaption.innerHTML = `<p>Name: ${name}</p><p>Description: ${description}</p><p>Timestamp: ${timestamp}</p><p>${locationInfo}</p>`;
         }
         
      
@@ -66,7 +67,7 @@ function getImages() {
             } else {
                 intervalId = setInterval(() => {
                     nextImage(result);
-                }, 2000); // Change the time interval as needed (currently set to 2 seconds)
+                }, 2000); 
             }
             
             isPresentationRunning = !isPresentationRunning;

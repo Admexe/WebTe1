@@ -1,10 +1,9 @@
-// map.js
 
 mapboxgl.accessToken = 'pk.eyJ1IjoieHByYXNrYWMiLCJhIjoiY2xwZHZ3cDI5MTN3aTJrbmtpbm0xdXU1MSJ9.07-WNYPcdcDD61-zeY3ZKg';
 
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/navigation-night-v1',
+    style: 'mapbox://styles/mapbox/outdoors-v12',
     center: [19.487978057775337,48.67848154980625],
     zoom: 6
 });
@@ -12,7 +11,7 @@ console.log("Map loaded");
 
 async function fetchMarkerData() {
     try {
-        const response = await fetch('./images.json'); // Adjust the path accordingly
+        const response = await fetch('./images.json'); 
 
         if (!response.ok) {
             throw new Error('Failed to fetch marker data');
@@ -26,12 +25,10 @@ async function fetchMarkerData() {
 }
 
 
-// Function to create markers from JSON data
 async function createMarkers() {
     const markerData = await fetchMarkerData();
 
     if (markerData && markerData.images) {
-        // Group images by location
         const groupedImages = {};
         markerData.images.forEach(image => {
             const { location } = image;
@@ -44,7 +41,6 @@ async function createMarkers() {
             groupedImages[key].push(image);
         });
 
-        // Create markers and add click event listener
         Object.keys(groupedImages).forEach(key => {
             const images = groupedImages[key];
 
@@ -61,7 +57,6 @@ async function createMarkers() {
 
 
 
-// Call the function to create markers
 createMarkers();
 
 function openModal(images) {
@@ -115,13 +110,11 @@ function openModal(images) {
 
 createMarkers();
 
-// Updated openImageDetailsModal function
-// Updated openImageDetailsModal function
 function openImageDetailsModal(image) {
     const modal = document.getElementById('myModal');
     const modalContent = document.getElementById('modalContent');
 
-    modalContent.innerHTML = ''; // Clear existing content
+    modalContent.innerHTML = ''; 
 
     const img = document.createElement('img');
     img.src = image.url;
@@ -138,12 +131,23 @@ function openImageDetailsModal(image) {
     textContainer.style.letterSpacing = '1px';
 
     const descriptionParagraph = document.createElement('p');
-    descriptionParagraph.textContent = image.description;
+    descriptionParagraph.textContent = `Description: ${image.description}`;
     textContainer.appendChild(descriptionParagraph);
-
+    
     const timestampParagraph = document.createElement('p');
     timestampParagraph.textContent = `Timestamp: ${image.timestamp}`;
     textContainer.appendChild(timestampParagraph);
+    
+    const nameParagraph = document.createElement('p');
+    nameParagraph.textContent = `Name: ${image.name}`;
+    textContainer.appendChild(nameParagraph);
+    
+    if (image.location) {
+        const locationParagraph = document.createElement('p');
+        locationParagraph.textContent = `Location: ${image.location.lat}, ${image.location.lng}`;
+        textContainer.appendChild(locationParagraph);
+    }
+    
 
     modalContent.appendChild(textContainer);
 
