@@ -67,6 +67,7 @@
 .modal-img {
     width: 100%;
     height: auto;
+    max-height: 80vh;
 }
 
 #modalCaption {
@@ -78,8 +79,37 @@
 }
 
 .modal-buttons {
+    position: absolute;
+    top: 50%;
+    width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+    transform: translateY(-50%);
+}
+
+.arrow {
+    font-size: 5rem;
+    cursor: pointer;
+    color: white;
+}
+
+#prevbtn {
+    margin-left: 10px;
+}
+
+#nextbtn {
+    margin-right: 10px;
+}
+
+#presentationbtn {
+    display: block;
+    margin: 20px auto;
+}
+
+#map {
+    width: 100%;
+    height: 80vh; 
 }
 
 
@@ -158,5 +188,15 @@ html {
         width: 100%;
         height: auto;
         margin: 5px;
+    }
+
+    .button-55 {
+        border-radius: 1em; /* Adjust for smaller screens */
+        font-size: 0.8em; /* Adjust for smaller screens */
+        padding: 0.5em 1em; /* Adjust for smaller screens */
+    }
+
+    .arrow {
+        font-size: 1.5em; /* Adjust for smaller screens */
     }
 }

@@ -5,23 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galeria</title>
     <link rel="stylesheet" href="master.css">
+
 </head>
 <body>
-    <h1>Galeria</h1>
+    
 
     <input type="text" id="filter" placeholder="Filtrovat obrazky">
 
     <div id="gallery"></div>
-    <button onclick="goToMapPage()">Go to Map</button>
+    <a href="./map.html" class="button-55">Go to Map</a>
     <div id="myGalleryModal" class="modal">
         <span class="close" onclick="closeModal()">&times;</span>
         <img class="modal-content" id="modalImg">
         <div id="modalCaption"></div>
         <div class="modal-buttons">
-            <button class="button-55" id="prevbtn">&#10094; Prev</button>
-            <button class="button-55" id="nextbtn">Next &#10095;</button>
-            <button class="button-55" id="presentationbtn">Start / Stop slide show</button>
+            <span class="arrow" id="prevbtn" onclick="prevImage()">&#10094;</span>
+            <span class="arrow" id="nextbtn" onclick="nextImage()">&#10095;</span>
         </div>
+        <button class="button-55" id="presentationbtn">Start / Stop slide show</button>
     
     </div>
     
