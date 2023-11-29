@@ -1,0 +1,105 @@
+{
+  "images": [
+    {
+      "name": "Bratislava dubravka",
+      "description": "Adam v Dubravke v noci",
+      "url": "./img/bratislava1.jpg",
+      "timestamp": "2022-07-16", 
+      "location" : {
+        "lat": 17.029521716345716,
+        "lng": 48.18903093021262
+      }
+    },
+    {
+      "name": "Častkov",
+      "description": "Adam v Častkove",
+      "url": "./img/castkov1.jpg",
+      "timestamp": "2022-04-28", 
+      "location" : {
+        "lat": 17.359488015813753,
+        "lng": 48.75530558972697
+      }
+    },
+    {
+      "name": "Častkov",
+      "description": "Moj hauko spí",
+      "url": "./img/castkov2.jpg",
+      "timestamp": "2021-09-18", 
+      "location" : {
+        "lat": 17.359488015813753,
+        "lng": 48.75530558972697
+      }
+    },
+    {
+      "name": "Oravska Lesna",
+      "description": "Adam s býkom v Oravskej Lesnej",
+      "url": "./img/oravskalesna1.jpg",
+      "timestamp": "2021-07-18",
+      "location" : {
+        "lat": 19.181946,
+        "lng": 49.358518
+      }
+    },
+    {
+      "name": "Oravska Lesna",
+      "description": "Diskotéka v Oravskej Lesnej",
+      "url": "./img/oravskalesna2.jpg",
+      "timestamp": "2021-07-24",
+      "location" : {
+        "lat": 19.181946,
+        "lng": 49.358518
+      }
+    },
+    {
+      "name": "Rohacske plesa",
+      "description": "Rohacske plesa",
+      "url": "./img/rohacskeplesa1.jpg",
+      "timestamp": "2023-07-04", 
+      "location" : {
+        "lat": 19.734448667918386,
+        "lng": 49.20632505281557
+      }
+
+    },
+    {
+      "name": "Rohacske plesa",
+      "description": "Rohacske plesa",
+      "url": "./img/rohacskeplesa2.jpg",
+      "timestamp": "2023-07-04" , 
+      "location" : {
+        "lat": 19.734448667918386,
+        "lng": 49.20632505281557
+      }
+    },
+    {
+      "name": "Rohacske Plesa",
+      "description": "Rohacske plesa",
+      "url": "./img/rohacskeplesa3.jpg",
+      "timestamp": "2023-07-04", 
+      "location" : {
+        "lat": 19.734448667918386,
+        "lng": 49.20632505281557
+      }
+    },
+    {
+      "name": "Vieden",
+      "description": "Adam vo Viedni",
+      "url": "./img/vieden1.jpg",
+      "timestamp": "2019-09-29", 
+      "location" : {
+        "lat": 16.361806058583042,
+        "lng": 48.20918559001667
+      }
+    },
+    {
+      "name": "Vieden",
+      "description": "Vieden",
+      "url": "./img/vieden2.jpg",
+      "timestamp": "2019-09-29" , 
+      "location" : {
+        "lat": 16.361806058583042,
+        "lng": 48.20918559001667
+      }
+    }
+  ]
+}
