@@ -43,7 +43,7 @@ function getImages() {
         }
         function updateCaption() {
             const { description, timestamp } = result.images[currentIndex];
-            modalCaption.innerHTML = `<p>${description}</p><p>Timestamp: ${timestamp}</p>`;
+            modalCaption.innerHTML = `<p>${description}</p><p>Odfotené: ${timestamp}</p>`;
         }
         
      
