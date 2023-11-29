@@ -53,8 +53,7 @@ async function createMarkers() {
                 .addTo(map);
 
             marker.getElement().addEventListener('click', () => {
-                const photoUrls = images.map(image => image.url);
-                openModal(photoUrls);
+                openModal(images);
             });
         });
     }
@@ -65,19 +64,39 @@ async function createMarkers() {
 // Call the function to create markers
 createMarkers();
 
-function openModal(photoUrls) {
+function openModal(images) {
     const modal = document.getElementById('myModal');
     const modalContent = document.getElementById('modalContent');
 
     modalContent.innerHTML = '';
 
-    photoUrls.forEach(url => {
+    if (images.length > 1) {
+        images.forEach(image => {
+            const img = document.createElement('img');
+            img.src = image.url;
+            img.alt = 'custom image';
+            img.classList.add('popup-image');
+
+            img.addEventListener('click', () => {
+                openImageDetailsModal(image);
+            });
+
+            modalContent.appendChild(img);
+        });
+    } else if (images.length === 1) {
+        const image = images[0];
+
         const img = document.createElement('img');
-        img.src = url;
+        img.src = image.url;
         img.alt = 'custom image';
         img.classList.add('popup-image');
+
+        img.addEventListener('click', () => {
+            openImageDetailsModal(image);
+        });
+
         modalContent.appendChild(img);
-    });
+    }
 
     modal.style.display = 'block';
 
@@ -93,6 +112,52 @@ function openModal(photoUrls) {
     });
 }
 
-function goToGalleryPage() {
-    window.location.href = 'index.html';
+
+createMarkers();
+
+// Updated openImageDetailsModal function
+// Updated openImageDetailsModal function
+function openImageDetailsModal(image) {
+    const modal = document.getElementById('myModal');
+    const modalContent = document.getElementById('modalContent');
+
+    modalContent.innerHTML = ''; // Clear existing content
+
+    const img = document.createElement('img');
+    img.src = image.url;
+    img.alt = 'custom image';
+    img.classList.add('popup-image');
+
+    modalContent.appendChild(img);
+
+    const textContainer = document.createElement('div');
+    textContainer.style.margin = '10px 0';
+    textContainer.style.color = '#ccc';
+    textContainer.style.textAlign = 'center';
+    textContainer.style.fontSize = '15px';
+    textContainer.style.letterSpacing = '1px';
+
+    const descriptionParagraph = document.createElement('p');
+    descriptionParagraph.textContent = image.description;
+    textContainer.appendChild(descriptionParagraph);
+
+    const timestampParagraph = document.createElement('p');
+    timestampParagraph.textContent = `Timestamp: ${image.timestamp}`;
+    textContainer.appendChild(timestampParagraph);
+
+    modalContent.appendChild(textContainer);
+
+    modal.style.display = 'block';
+
+    const closeModalButton = document.getElementsByClassName('close')[0];
+    closeModalButton.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
 }
+
