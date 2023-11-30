@@ -130,27 +130,32 @@ function openModal(images) {
 
 
 async function createRoute(images) {
+    // Extract coordinates from marker data
     const coordinates = images.map(image => [
-        image.location.lng,
-        image.location.lat
+        image.location.lat,
+        image.location.lng
     ]);
 
+    // Fetch directions from the Mapbox Directions API
     const response = await fetch(
         `https://api.mapbox.com/directions/v5/mapbox/driving/${coordinates.join(';')}?access_token=${mapboxgl.accessToken}`
     );
 
+    // Parse the API response
     const data = await response.json();
 
     // Check if the API response contains a valid route
     if (data.routes && data.routes.length > 0 && data.routes[0].geometry) {
+        // Extract the route geometry from the API response
         const routeGeometry = data.routes[0].geometry;
 
+        // Create a GeoJSON LineString feature
         const route = {
             type: 'Feature',
             properties: {},
             geometry: {
                 type: 'LineString',
-                coordinates: polyline.decode(routeGeometry).map(coord => [coord[0], coord[1]])
+                coordinates: polyline.decode(routeGeometry).map(coord => [coord[1], coord[0]])
             }
         };
 
@@ -159,11 +164,13 @@ async function createRoute(images) {
             removeRoute();
         }
 
+        // Add the GeoJSON source to the map
         map.addSource('route', {
             type: 'geojson',
             data: route
         });
 
+        // Add a new layer to the map to visualize the route
         map.addLayer({
             id: 'route',
             type: 'line',
