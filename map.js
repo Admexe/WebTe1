@@ -3,7 +3,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoieHByYXNrYWMiLCJhIjoiY2xwZHZ3cDI5MTN3aTJrbmtpb
 
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/outdoors-v12',
+    style: 'mapbox://styles/mapbox/streets-v12',
     center: [19.487978057775337,48.67848154980625],
     zoom: 6
 });
@@ -25,10 +25,22 @@ async function fetchMarkerData() {
 }
 
 
+
 async function createMarkers() {
     const markerData = await fetchMarkerData();
 
     if (markerData && markerData.images) {
+        // Sort images based on timestamp in ascending order
+        const sortedImages = markerData.images.sort((a, b) => {
+            return new Date(a.timestamp) - new Date(b.timestamp);
+        });
+
+            waypoints = sortedImages.map(image => {
+            return `${+image.location.lng},${+image.location.lat}`;
+        });
+
+        console.log('Ordered Waypoints:', waypoints);
+        
         const groupedImages = {};
         markerData.images.forEach(image => {
             const { location } = image;
@@ -57,7 +69,6 @@ async function createMarkers() {
 
 
 
-createMarkers();
 
 function openModal(images) {
     const modal = document.getElementById('myModal');
@@ -106,6 +117,107 @@ function openModal(images) {
         }
     });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+async function createRoute(images) {
+    const coordinates = images.map(image => [
+        image.location.lng,
+        image.location.lat
+    ]);
+
+    const response = await fetch(
+        `https://api.mapbox.com/directions/v5/mapbox/driving/${coordinates.join(';')}?access_token=${mapboxgl.accessToken}`
+    );
+
+    const data = await response.json();
+
+    // Check if the API response contains a valid route
+    if (data.routes && data.routes.length > 0 && data.routes[0].geometry) {
+        const routeGeometry = data.routes[0].geometry;
+
+        const route = {
+            type: 'Feature',
+            properties: {},
+            geometry: {
+                type: 'LineString',
+                coordinates: polyline.decode(routeGeometry).map(coord => [coord[0], coord[1]])
+            }
+        };
+
+        // Check if the route source already exists and remove it before adding a new one
+        if (map.getSource('route')) {
+            removeRoute();
+        }
+
+        map.addSource('route', {
+            type: 'geojson',
+            data: route
+        });
+
+        map.addLayer({
+            id: 'route',
+            type: 'line',
+            source: 'route',
+            layout: {
+                'line-join': 'round',
+                'line-cap': 'round'
+            },
+            paint: {
+                'line-color': '#3887be',
+                'line-width': 5
+            }
+        });
+    } else {
+        console.error('Invalid or missing route data in the API response');
+    }
+}
+
+
+function removeRoute() {
+    if (map.getSource('route')) {
+        map.removeLayer('route');
+        map.removeSource('route');
+    }
+}
+
+const showRouteButton = document.getElementById('toggleRouteButton');
+showRouteButton.addEventListener('click', async () => {
+    const markerData = await fetchMarkerData(); // Add await here
+    if (markerData && markerData.images) {
+        const sortedImages = markerData.images.sort((a, b) => {
+            return new Date(a.timestamp) - new Date(b.timestamp);
+        });
+
+        if (map.getSource('route')) {
+            removeRoute();
+        } else {
+            createRoute(sortedImages);
+        }
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 createMarkers();
@@ -163,5 +275,6 @@ function openImageDetailsModal(image) {
             modal.style.display = 'none';
         }
     });
+
 }
 

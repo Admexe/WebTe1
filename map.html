@@ -2,10 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=;, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width" , initial-scale="1.0">
     <link rel="stylesheet" href="./master.css">
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet'>
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js'></script>
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css' type='text/css'>
+    <script src='https://unpkg.com/polyline'></script>
     <script defer src="map.js"></script>
     <title>Mapa</title>
 </head>
@@ -18,5 +21,6 @@
         <div id="modalContent" class="modal-content"></div>
     </div>
     <a href="./index.html" class="button-55">Go to Gallery</a>
+    <button id="toggleRouteButton" class="button-55">Toggle Chronological Road</button>
 </body>
 </html>
